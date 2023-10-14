@@ -5,8 +5,6 @@ services:
   postgres:
     image: postgres:latest
     container_name: test-db-docker
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: admin 
       POSTGRES_PASSWORD: 11111111
