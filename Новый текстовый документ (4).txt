@@ -1,0 +1,7 @@
+docker exec -it test-db-docker bash  -подключиться к контейнеру докер через bash
+
+psql -h localhost -U admin -d test_db_docker - подключиться внутри контейнера докер к базе данных
+
+docker-compose up -d - запустить docker
+docker-compose down - выключить докер
+docker-compose build - Собрать докер

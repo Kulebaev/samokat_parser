@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: test-db-docker
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin 
+      POSTGRES_PASSWORD: 11111111
+      POSTGRES_DB: test_db_docker
+    ports:
+      - "5432:5432"
+
+  src:
+    build:
+      context: ./src
+    container_name: src
+    ports:
+      - "8000:8000"

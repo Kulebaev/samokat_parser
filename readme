@@ -1,0 +1,52 @@
+# Руководство по развёртыванию СУБД с Docker
+
+Это руководство описывает шаги по развёртыванию контейнера с PostgreSQL, с использованием Docker и Docker Compose. Кроме того, будет обеспечена сохранность данных при перезапуске контейнера.
+
+## Шаг 1: Установка Docker и Docker Compose
+
+Если у вас ещё не установлены Docker и Docker Compose, выполните следующие шаги:
+
+1. [Установите Docker](https://docs.docker.com/get-docker/).
+2. [Установите Docker Compose](https://docs.docker.com/compose/install/).
+
+## Шаг 2: Клонирование репозитория (если есть)
+
+Если у вас есть репозиторий с файлами Docker Compose и другими ресурсами, склонируйте его на свой локальный компьютер.
+
+git clone <URL_репозитория>
+
+Шаг 3: Настройка Docker Compose
+Создайте файл docker-compose.yml или используйте существующий, чтобы определить контейнер СУБД. Вот пример содержания файла docker-compose.yml:
+
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: test-db-docker
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 11111111
+      POSTGRES_DB: test_db_docker
+    ports:
+      - "5432:5432"
+
+
+Здесь вы настраиваете контейнер PostgreSQL, указывая имя пользователя, пароль, имя базы данных и т.д. Важно, что мы используем volume для сохранения данных.
+
+
+Шаг 4: Запуск контейнера
+Перейдите в каталог, где находится ваш файл docker-compose.yml, и выполните следующую команду:
+docker-compose up -d
+Эта команда запустит контейнер и предоставит доступ к СУБД.
+
+Шаг 4.5: Подключение к контейнеру Docker
+docker exec -it test-db-docker bash 
+подключиться к контейнеру докер через bash 
+
+Шаг 5: Подключение к СУБД
+Теперь, чтобы подключиться к СУБД PostgreSQL, выполните следующую команду, заменив параметры на свои:
+psql -h localhost -U admin -d test_db_docker
+При запросе введите пароль пользователя admin, который вы указали в docker-compose.yml.
+
